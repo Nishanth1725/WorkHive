@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorkHive - Sign In</title>
+    <style>
+        /* Base Styling - Matching the dark theme */
+        body {
+            background-color: #0b0e14;
+            color: #ffffff;
+            font-family: 'Inter', -apple-system, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: #12161d;
+            padding: 0.8rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #2d333b;
+        }
+        .nav-left { display: flex; gap: 25px; align-items: center; }
+        .nav-brand { font-size: 1.4rem; font-weight: 700; color: #f0f6fc; text-decoration: none; letter-spacing: -0.5px; }
+        .nav-link { color: #8b949e; text-decoration: none; font-size: 0.9rem; transition: 0.2s; }
+        .nav-link:hover { color: #ffffff; }
+
+        .nav-right { display: flex; gap: 15px; }
+        .btn-signin { background-color: #1f6feb; color: white; text-decoration: none; padding: 6px 16px; border-radius: 6px; font-size: 0.9rem; font-weight: 600; }
+        .btn-register { color: #8b949e; text-decoration: none; border: 1px solid #30363d; padding: 6px 16px; border-radius: 6px; font-size: 0.9rem; }
+
+        /* Main Content & Card */
+        .main-container { flex: 1; display: flex; justify-content: center; align-items: center; }
+        
+        .auth-card {
+            background-color: #151b23;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+        }
+
+        .auth-card h2 { margin: 0 0 0.5rem 0; font-size: 1.8rem; }
+        .auth-card p { color: #8b949e; font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+        /* Success Message Styling */
+        .msg { color: #39d353; background: rgba(57, 211, 83, 0.1); padding: 10px; border-radius: 6px; margin-bottom: 1rem; text-align: center; font-size: 0.85rem; border: 1px solid rgba(57, 211, 83, 0.2); display: none; }
+
+        /* Form Elements */
+        .form-group { margin-bottom: 1.2rem; }
+        label { display: block; margin-bottom: 8px; color: #8b949e; font-size: 0.85rem; }
+        input {
+            width: 100%;
+            padding: 12px;
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: white;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+        input:focus { border-color: #58a6ff; outline: none; box-shadow: 0 0 0 3px rgba(88,166,255,0.1); }
+
+        /* Blue Button for Sign In */
+        .btn-submit {
+            background-color: #1f6feb;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 120px;
+            font-size: 1rem;
+        }
+        .btn-submit:hover { background-color: #388bfd; }
+
+        /* Footer Link Placement (Same as your reference) */
+        .form-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+        .register-link { font-size: 0.9rem; color: #8b949e; text-decoration: none; }
+        .register-link span { color: #58a6ff; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="index.html" class="nav-brand">WorkHive</a>
+            <a href="#" class="nav-link">Jobs</a>
+            <a href="#" class="nav-link">Companies</a>
+        </div>
+        <div class="nav-right">
+            <a href="login.html" class="btn-signin">Sign in</a>
+            <a href="register.html" class="btn-register">Register</a>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="auth-card">
+            <h2>Sign in to WorkHive</h2>
+            <p id="sub-header">Welcome back! Access your career portal.</p>
+            
+            <div id="success-msg" class="msg"></div>
+            
+            <form action="login" method="POST">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" name="email" required placeholder="name@example.com">
+                </div>
+                
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" required>
+                </div>
+                
+                <div class="form-footer">
+                    <button type="submit" class="btn-submit">Sign in</button>
+                    <a href="register.html" class="register-link">New to WorkHive? <span>Create account</span></a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const msgValue = urlParams.get('msg');
+        
+        if (msgValue) {
+            const msgBox = document.getElementById('success-msg');
+            const subHeader = document.getElementById('sub-header');
+            
+            msgBox.style.display = "block";
+            subHeader.style.display = "none";
+
+            if (msgValue === 'registered') {
+                msgBox.innerText = "✅ Registration Successful! Please login.";
+                // Keep default green styling
+            } else if (msgValue === 'logout') {
+                msgBox.innerText = "👋 You have been successfully logged out.";
+                msgBox.style.color = "#58a6ff"; // Blue
+                msgBox.style.backgroundColor = "rgba(88, 166, 255, 0.1)";
+                msgBox.style.borderColor = "rgba(88, 166, 255, 0.2)";
+            } else if (msgValue === 'invalid') {
+                msgBox.innerText = "❌ Invalid email or password.";
+                msgBox.style.color = "#f85149"; // Red
+                msgBox.style.backgroundColor = "rgba(248, 81, 73, 0.1)";
+                msgBox.style.borderColor = "rgba(248, 81, 73, 0.2)";
+            } else if (msgValue === 'error') {
+                msgBox.innerText = "⚠️ An error occurred. Please try again.";
+                msgBox.style.color = "#d29922"; // Yellow
+                msgBox.style.backgroundColor = "rgba(210, 153, 34, 0.1)";
+                msgBox.style.borderColor = "rgba(210, 153, 34, 0.2)";
+            }
+        }
+    </script>
+</body>
+</html>
