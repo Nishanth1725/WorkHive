@@ -2,21 +2,18 @@ package com.amrita.jobportal.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class DatabaseConnection {
-    private static final String URL = "jdbc:mysql://localhost:3306/job_portal_db?useSSL=false&serverTimezone=UTC";
+    // Railway Public Proxy Credentials
+    private static final String URL = "jdbc:mysql://switchback.proxy.rlwy.net:33401/railway";
     private static final String USER = "root";
-    private static final String PASSWORD = "chintusai1725";
+    private static final String PASSWORD = "TbVNECDBFrphCgFPjrTdYadzOdBlKvSG";
 
     public static Connection getConnection() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Database Connected Successfully!");
-            return connection;
+            return DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (Exception e) {
-            System.out.println("Database Connection Failed!");
             e.printStackTrace();
             return null;
         }
