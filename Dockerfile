@@ -6,8 +6,8 @@ RUN mvn dependency:go-offline
 COPY src ./src
 RUN mvn clean package -DskipTests
 
-# Stage 2: Run the WAR file using Tomcat 10
-FROM tomcat:10.1-jdk17
+# Stage 2: Run the WAR file using Tomcat 11
+FROM tomcat:11.0-jdk17
 # Clear out default Tomcat junk
 RUN rm -rf /usr/local/tomcat/webapps/*
 # Copy the compiled WAR file from Stage 1 into Tomcat
